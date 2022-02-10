@@ -8,5 +8,5 @@ app.get('/', async (req, res) => {
 });
 
 // app.use('/API', require('./API/Upload'));
-// app.use('/API', require('./API/Report'));
+app.use('/user', require('./API/User'));
 app.listen(PORT, () => console.log("index.js is up and running!"));

@@ -4,7 +4,7 @@ const util = require("util");
 const connection = mysql.createConnection({
     host: "104.197.129.199",
     user: "root",
-    database: "wave_payroll",
+    database: "Rapidpass",
     password: "Rapidpass123*"
 });
 

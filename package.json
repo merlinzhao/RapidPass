@@ -19,6 +19,7 @@
   "homepage": "https://github.com/merlinzhao/RapidPass#readme",
   "dependencies": {
     "express": "^4.17.2",
+    "moment": "^2.29.1",
     "mysql": "^2.18.1",
     "util": "^0.12.4"
   }
