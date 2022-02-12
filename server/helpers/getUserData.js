@@ -14,6 +14,8 @@ module.exports = {
     },
 
     async getByName(firstName, lastName) {
+        let query = "SELECT * FROM ACCOUNT_DATE WHERE firstName = ?"
+
 
     }
 };
