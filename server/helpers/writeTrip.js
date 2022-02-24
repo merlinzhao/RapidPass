@@ -9,10 +9,16 @@ module.exports = {
     },
 
     async newTrip() {
+        let query = "INSERT INTO TRIP_DATA"
+        let values = [];
+        await connection(query, values);
 
     },
 
     async newTransacton() {
+        let query = "INSERT INTO TRIP_DATA"
+        let values = [];
+        await connection(query, values);
 
     }
 

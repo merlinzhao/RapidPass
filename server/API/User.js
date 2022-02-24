@@ -5,6 +5,7 @@ const route = express.Router();
 const getUserData = require("../helpers/getUserData");
 
 route.get('/email/:email', async (req, res) => {
+    // returns all user information inclduing the balance on the account
     console.log(req.params.email)
     let data = await getUserData.getByEmail(req.params.email);
     res.status(200).send(data[0]);

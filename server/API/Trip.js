@@ -7,6 +7,7 @@ const { transferValid, newTrip, newTransacton } = require("../helpers/writeTrip"
 
 
 route.get('trips/:userID', async (req, res) => {
+    // will return object with a trip information, including if the transfer is valid
     let data = await getAllTrips(req.params.userID);
     res.status(200).send(data[0]);
 });
