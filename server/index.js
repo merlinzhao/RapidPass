@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const PORT = 3000;
 
 app.use(express.json({ extended: false }));
 app.get('/', async (req, res) => {
@@ -9,4 +8,4 @@ app.get('/', async (req, res) => {
 
 // app.use('/API', require('./API/Upload'));
 app.use('/user', require('./API/User'));
-app.listen(PORT, () => console.log("index.js is up and running!"));
+app.listen(process.env.PORT || 3000, () => console.log("index.js is up and running!"));
