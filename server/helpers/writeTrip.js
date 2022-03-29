@@ -2,6 +2,9 @@ const connection = require("../DB/Connection");
 
 
 module.exports = {
+    async checkTransferVAlid() {
+
+    },
     async transferValid() {
         let query = "INSERT INTO TRIP_DATA"
         let values = [];

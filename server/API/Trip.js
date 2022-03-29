@@ -3,7 +3,7 @@ const moment = require('moment');
 
 const route = express.Router();
 const { getAllTrips, getLastTrip } = require("../helpers/getTrip");
-const { transferValid, newTrip, newTransacton } = require("../helpers/writeTrip");
+const { checkTransferVAlid, transferValid, newTrip, newTransacton } = require("../helpers/writeTrip");
 
 
 route.get('/all/:userID', async (req, res) => {
@@ -19,12 +19,22 @@ route.get('/latest/:userID', async (req, res) => {
 });
 
 route.post('/newtrip', async (req, res) => {
-    //curl -d "username=scott&password=secret&website=stackabuse.com" -X POST http://localhost:3000/trip/newtrip
+    // curl -d "userID=????&station=???&vehicle=???&travelDate=???&startTime=???&transferEndTime=???&fareCost=????&hasTransfer=???" -X POST http://localhost:3000/trip/newtrip
+    // userID, station, vehicle, travelDate, startTime, trasnferEndTime, fareCost, hasTranser
+    // DATE FORMATTING 
 
     let data = req.body;
     console.log(data);
+    let trasnferEndTime = new Date()
+    trasnferEndTime.setHours(trasnferEndTime.getHours() + 2);
+
+    // start date is when the tag is detected.
+    let startTime = new Date();
+    console.log(startTime, trasnferEndTime)
+
+
     //check latest trip with userID -> find if transferEdntimePass
-    // let transferValid;
+    let transferValid;
 
     // if (transferValid) {
     //     await transferValid();
