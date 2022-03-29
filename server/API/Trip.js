@@ -1,34 +1,40 @@
 const express = require('express');
 const moment = require('moment');
-const { getLastTrip } = require('../helpers/getTrip');
+
 const route = express.Router();
 const { getAllTrips, getLastTrip } = require("../helpers/getTrip");
 const { transferValid, newTrip, newTransacton } = require("../helpers/writeTrip");
 
 
-route.get('trips/:userID', async (req, res) => {
+route.get('/all/:userID', async (req, res) => {
     // will return object with a trip information, including if the transfer is valid
+    console.log("get all trips");
     let data = await getAllTrips(req.params.userID);
     res.status(200).send(data[0]);
 });
 
-route.get('trips/latest/:userID', async (req, res) => {
+route.get('/latest/:userID', async (req, res) => {
     let data = await getLastTrip(req.params.userID);
     res.status(200).send(data[0]);
 });
 
-route.post('trips/newtrip', async (req, res) => {
-    let data = req.body;
-    //check latest trip with userID -> find if transferEdntimePass
-    let transferValid;
+route.post('/newtrip', async (req, res) => {
+    //curl -d "username=scott&password=secret&website=stackabuse.com" -X POST http://localhost:3000/trip/newtrip
 
-    if (transferValid) {
-        await transferValid();
-    } else {
-        // need to charge, new transfer time
-        await newTrip();
-    };
-    // get fareCost
-    await newTransacton;
+    let data = req.body;
+    console.log(data);
+    //check latest trip with userID -> find if transferEdntimePass
+    // let transferValid;
+
+    // if (transferValid) {
+    //     await transferValid();
+    // } else {
+    //     // need to charge, new transfer time
+    //     await newTrip();
+    // };
+    // // get fareCost
+    // await newTransacton;
+    res.status(200).send("posted newtrip");
 });
 
+module.exports = route;
