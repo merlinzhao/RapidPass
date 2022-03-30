@@ -2,8 +2,11 @@ const express = require('express');
 const moment = require('moment');
 
 const route = express.Router();
+const getUserData = require("../helpers/getUserData");
+const getTrip = require("../helpers/getTrip");
 const { getAllTrips, getLastTrip } = require("../helpers/getTrip");
 const { checkTransferVAlid, transferValid, newTrip, newTransacton } = require("../helpers/writeTrip");
+const checkBalance = require('../helpers/checkBalance');
 
 
 route.get('/all/:userID', async (req, res) => {
@@ -19,32 +22,46 @@ route.get('/latest/:userID', async (req, res) => {
 });
 
 route.post('/newtrip', async (req, res) => {
-    // curl -d "userID=????&station=???&vehicle=???&travelDate=???&startTime=???&transferEndTime=???&fareCost=????&hasTransfer=???" -X POST http://localhost:3000/trip/newtrip
+    // curl -d "tagID=10001&station=???&vehicle=???&fareCost=????" -X POST http://localhost:3000/trip/newtrip
     // userID, station, vehicle, travelDate, startTime, trasnferEndTime, fareCost, hasTranser
     // DATE FORMATTING 
 
     let data = req.body;
     console.log(data);
-    let trasnferEndTime = new Date()
-    trasnferEndTime.setHours(trasnferEndTime.getHours() + 2);
+    let tagID = data.tagID, station = data.station, vehicle = data.vehicle, fareCost = data.fareCost;
+    // if has latest trip
+    let lastTrip = await getTrip.getLastTrip(tagID);
+    if (lastTrip) {
+        // has a last trip
+        let now = new Date();
+        let trasnferEndTime = new Date(lastTrip[0].transferEndTime);
+        trasnferEndTime.setHours(trasnferEndTime.getHours() - 50); ///// TEMP!!!!!
 
-    // start date is when the tag is detected.
-    let startTime = new Date();
-    console.log(startTime, trasnferEndTime)
+        console.log("now: ", now, " --- endtime: ", trasnferEndTime);
+        if (now < trasnferEndTime) {
+            //transfer is valid, no charge
+            console.log("Transfer is valid");
+            res.status(200).send("Transfer valid");
+            return;
+
+        } else {
+            console.log("Transfer not valid");
+        }
+    }
+    //check balance
+    fareCost = 3; // TEMP !!!!!!!
+    console.log("after it");
+    let sufficentBalance = await checkBalance(tagID, fareCost);
+    console.log(sufficentBalance);
 
 
-    //check latest trip with userID -> find if transferEdntimePass
-    let transferValid;
 
-    // if (transferValid) {
-    //     await transferValid();
-    // } else {
-    //     // need to charge, new transfer time
-    //     await newTrip();
-    // };
-    // // get fareCost
-    // await newTransacton;
+
+
+
     res.status(200).send("posted newtrip");
 });
+
+
 
 module.exports = route;

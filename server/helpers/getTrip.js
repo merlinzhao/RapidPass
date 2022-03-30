@@ -1,24 +1,19 @@
 const connection = require("../DB/Connection");
 
 module.exports = {
-    async getAllTrips(userID) {
-        let query = "SELECT * FROM TRIP_DATA WHERE userID = ?";
+    async getAllTrips(tagID) {
+        let query = "SELECT * FROM TRIP_DATA WHERE tagID = ?";
         let results;
         try {
-            results = await connection(query, userID);
+            results = await connection(query, tagID);
         } catch {
             results = "";
         }
         return results;
     },
-    async getLastTrip(userID) {
-        let query = "";
-        let results;
-        try {
-            results = await connection(query, userID);
-        } catch {
-            results = "";
-        }
+    async getLastTrip(tagID) {
+        let query = "SELECT * FROM TRIP_DATA WHERE tagID = ? LIMIT 1";
+        let results = await connection(query, tagID);
         return results;
     },
 }

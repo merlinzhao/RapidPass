@@ -5,6 +5,7 @@ const route = express.Router();
 const getUserData = require("../helpers/getUserData");
 const writeBalance = require("../helpers/writeBalance");
 
+
 route.get('/email/:email', async (req, res) => {
     // returns all user information inclduing the balance on the account
     console.log(req.params.email)
@@ -30,10 +31,10 @@ route.get('/balanceByTag/:tagId', async (req, res) => {
     if (balance > 3) {
         balance = balance - 3;
         console.log("has suficent balance: $", balance)
-        await writeBalance.updateBalance(userID, balance)
+        // await writeBalance.updateBalance(userID, balance)
         result = true
     } else {
-        console.log("insuficent balance: $", balance)
+        console.log("ALERT: nsuficent balance: $", balance)
     }
     res.status(200).send(result);
 });
