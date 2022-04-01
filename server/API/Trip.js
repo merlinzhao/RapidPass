@@ -35,13 +35,13 @@ route.post('/newtrip', async (req, res) => {
         // has a last trip
         let now = new Date();
         let trasnferEndTime = new Date(lastTrip[0].transferEndTime);
-        trasnferEndTime.setHours(trasnferEndTime.getHours() - 50); ///// TEMP!!!!!
+        trasnferEndTime.setHours(trasnferEndTime.getHours() + 30); ///// TEMP!!!!!
 
         console.log("now: ", now, " --- endtime: ", trasnferEndTime);
         if (now < trasnferEndTime) {
             //transfer is valid, no charge
             console.log("Transfer is valid");
-            res.status(200).send("Transfer valid");
+            res.send("Transfer valid");
             return;
 
         } else {
