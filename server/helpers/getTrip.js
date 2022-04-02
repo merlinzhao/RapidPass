@@ -12,7 +12,7 @@ module.exports = {
         return results;
     },
     async getLastTrip(tagID) {
-        let query = "SELECT * FROM TRIP_DATA WHERE tagID = ? LIMIT 1";
+        let query = "SELECT * FROM TRIP_DATA WHERE tagID = ? ORDER BY tripID DESC LIMIT 1 ";
         let results = await connection(query, tagID);
         return results;
     },
