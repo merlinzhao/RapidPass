@@ -10,15 +10,17 @@ const checkBalance = require('../helpers/checkBalance');
 const { updateBalance } = require('../helpers/writeBalance')
 
 
-route.get('/all/:userID', async (req, res) => {
+route.get('/all/:tagID', async (req, res) => {
     // will return object with a trip information, including if the transfer is valid
-    console.log("get all trips");
-    let data = await getAllTrips(req.params.userID);
-    res.status(200).send(data[0]);
+    // http://localhost:3000/trip/all/10001
+
+    let data = await getAllTrips(req.params.tagID);
+    console.log("get all trips", data);
+    res.status(200).send(data);
 });
 
-route.get('/latest/:userID', async (req, res) => {
-    let data = await getLastTrip(req.params.userID);
+route.get('/latest/:tagID', async (req, res) => {
+    let data = await getLastTrip(req.params.tagID);
     res.status(200).send(data[0]);
 });
 
