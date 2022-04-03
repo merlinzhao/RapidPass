@@ -80,7 +80,7 @@ NEW_TRIP_URL = "https://rapidpass-express.herokuapp.com/trip/newtrip"
 # example of trip data
 # tripData = {"tagID": 10001,  "station": "test_station", "vehicle": "test_bus", "fareCost": 3}
 FARE_COST = 3
-TEST_STATION = "bus_11234"
+TEST_STATION = "TEST_STATION"
 TEST_VEHICLE = "bus_11234"
 
 
@@ -140,6 +140,7 @@ while True:
 
                 else:
                     print("keyTag has been aboard this vehicle already")
+                    keyTagSet.add(value)  # add new keytag found
                 # While the keytag is in range
 
                 # for database in findName:

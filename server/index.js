@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
+app.use(cors());
 app.use(express.json({ extended: false }));
 app.get('/', async (req, res) => {
     res.status(200).send({ message: "Rapid Pass API" });

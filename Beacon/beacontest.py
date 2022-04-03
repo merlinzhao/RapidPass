@@ -6,4 +6,4 @@ tripData = {"tagID": 10001,  "station": "test_station",
             "vehicle": "test_bus", "fareCost": 3}
 r = requests.post(url, data=tripData)
 
-print(r.json()['okay'])
+print(r.json())
