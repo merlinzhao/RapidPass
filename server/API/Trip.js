@@ -29,6 +29,7 @@ route.post('/newtrip', async (req, res) => {
     // curl -d "tagID=10001&station=test_station&vehicle=test_bus&fareCost=3" -X POST https://rapidpass-express.herokuapp.com/trip/newtrip
     // userID, station, vehicle, travelDate, travelTime, trasnferEndTime, fareCost, hasTranser
     // DATE FORMATTING 
+
     let data = req.body;
     console.log(data);
     let tagID = data.tagID, station = data.station, vehicle = data.vehicle, fareCost = data.fareCost;
