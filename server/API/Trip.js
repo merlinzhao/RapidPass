@@ -37,8 +37,10 @@ route.post('/newtrip', async (req, res) => {
     let lastTrip = await getTrip.getLastTrip(tagID);
     let result = {}
     let now = new Date();
-    console.log("\n\n", lastTrip);
-    if (lastTrip) {
+    console.log("\n\n");
+    console.log("*" + lastTrip + "*");
+    if (lastTrip != "") {
+        console.log("found previous trip");
         // has a last trip
         let transferEndTime = new Date(lastTrip[0].transferEndTime);
         // trasnferEndTime.setHours(trasnferEndTime.getHours() + 50); ///// TEMP!!!!!
@@ -61,7 +63,7 @@ route.post('/newtrip', async (req, res) => {
     if (sufficentBalance.okay) {
         now = new Date();
         let newTransfer = new Date();
-        newTransfer.setHours(newTransfer.getHours() + 2);
+        newTransfer.setMinutes(newTransfer.getMinutes() + 10);
 
         console.log(now, newTransfer);
         let newBalance = sufficentBalance.balance - fareCost;

@@ -8,3 +8,8 @@ r = requests.post(url, data=tripData)
 recieved = r.json()
 
 print(recieved)
+
+string = "11111"
+
+string = int(string)
+print(string)

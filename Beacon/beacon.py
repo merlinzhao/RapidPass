@@ -74,7 +74,7 @@ seconds = 60
 start_time = time.time()
 
 # this set will keep track of key tags seen at this stop
-keyTagSet = {}
+keyTagSet = []
 
 NEW_TRIP_URL = "https://rapidpass-express.herokuapp.com/trip/newtrip"
 # example of trip data
@@ -88,6 +88,8 @@ EXAMPLE_STOPS = ["Bay St at King St West", "Bay St at Adelaide St West", "Bay St
                  "Bay St at Albert St", "Bay St at Hangerman St", "Bay St at Dundas St West", "Bay St at Elm St", "Bay St at Gerrard St West", "Bay St at College St West"]
 STATION_INDEX = 0
 CURRENT_STATION = EXAMPLE_STOPS[STATION_INDEX]
+
+VALID_TAGS = ['10001', '10002']
 
 while True:
     # NEED HAVE SWITCH TO START SCANNING **********
@@ -114,33 +116,36 @@ while True:
     for dev in devices:
         for (adtype, desc, value) in dev.getScanData():
             if dev.rssi > -60:
-                if value not in keyTagSet:
-                    # if tag hasnt been seen before, that means a new trip
-                    tripData = {"tagID": value,  "station": CURRENT_STATION,
-                                "vehicle": TEST_VEHICLE, "fareCost": FARE_COST}
-                    request = requests.post(NEW_TRIP_URL, data=tripData)
-                    recieved = request.json()
+                if value in VALID_TAGS:
+                    value = int(value)
+                    if value not in keyTagSet:
+                        # if tag hasnt been seen before, that means a new trip
+                        tripData = {"tagID": value,  "station": CURRENT_STATION,
+                                    "vehicle": TEST_VEHICLE, "fareCost": FARE_COST}
+                        request = requests.post(NEW_TRIP_URL, data=tripData)
+                        recieved = request.json()
 
-                    if recieved['okay'] == True:
-                        # passenger is okay to board, either has trasnfer or paid fare
-                        if recieved['transfer'] == True:
-                            print("Transfer Valid")
+                        if recieved['okay'] == True:
+                            # passenger is okay to board, either has trasnfer or paid fare
+                            if recieved['transfer'] == True:
+                                print("Transfer Valid")
+                            else:
+                                farePaid = str(recieved['fare'])
+                                balanceRemain = str(recieved['balance'])
+                                print("$" + farePaid +
+                                      " Balance: " + balanceRemain)
+                            GPIO.output(18, GPIO.HIGH)
+                            time.sleep(2)
+                            GPIO.output(18, GPIO.LOW)
                         else:
-                            farePaid = str(recieved['fare'])
-                            balanceRemain = str(recieved['balance'])
-                            print("$" + farePaid + " Balance: " + balanceRemain)
-                        GPIO.output(18, GPIO.HIGH)
-                        time.sleep(2)
-                        GPIO.output(18, GPIO.LOW)
-                    else:
-                        # passenger should be REJECTED from boarding
-                        GPIO.output(17, GPIO.HIGH)
-                        time.sleep(2)
-                        GPIO.output(17, GPIO.LOW)
+                            # passenger should be REJECTED from boarding
+                            GPIO.output(17, GPIO.HIGH)
+                            time.sleep(2)
+                            GPIO.output(17, GPIO.LOW)
+                        keyTagSet.append(value)
 
-                else:
-                    print("keyTag has been aboard this vehicle already")
-                    keyTagSet.add(value)  # add new keytag found
+                    else:
+                        print("keyTag has been aboard this vehicle already")
                 # While the keytag is in range
 
                 # for database in findName:
