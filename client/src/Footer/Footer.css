@@ -1,0 +1,30 @@
+
+.footer-style {
+    /*background-image: url(../Images/rapidpass-footer1.jpg); */
+    width:100%;
+    height:200px;
+    /*height: 100vh; */
+    background-image: url(../Images/rapidpass-footer1.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: inline-block;
+    color:aliceblue;
+    
+}
+
+.main-footer {
+    color: white;
+    background-color: #0cc2eb;
+    background-image: linear-gradient(#0cc2eb, #4287f5);
+    padding-top: 3em;
+    position: center;
+    bottom: 0;
+    width: 100%;
+
+}
+
+.extra-padding {
+    width:100%;
+    height:50%;
+}

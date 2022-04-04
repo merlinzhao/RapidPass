@@ -1,0 +1,33 @@
+.App {
+    text-align: center;
+}
+.wrapper {
+    padding: 10px;
+}
+
+body {
+    padding: 2rem;
+}
+
+button {
+    margin: 2rem 0;
+    padding: 1rem 2rem;
+    width: 120px;
+    cursor: pointer;
+}
+
+img {
+    width: 200px;
+    height: auto;
+    
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content-wrap {
+    flex:1;
+}
