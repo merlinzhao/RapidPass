@@ -38,14 +38,14 @@ route.post('/newtrip', async (req, res) => {
     let result = {}
     let now = new Date();
     console.log("\n\n");
-    console.log("*" + lastTrip + "*");
+    console.log("Last trip data received:\n" + lastTrip);
     if (lastTrip != "") {
-        console.log("found previous trip");
+        console.log("A previous trip has been found");
         // has a last trip
         let transferEndTime = new Date(lastTrip[0].transferEndTime);
         // trasnferEndTime.setHours(trasnferEndTime.getHours() + 50); ///// TEMP!!!!!
 
-        console.log("now: ", now, " --- endtime: ", transferEndTime);
+        console.log("Current time: ", now, " --- end time for transfer: ", transferEndTime);
         if (now < transferEndTime) {
             //transfer is valid, no charge
             console.log("Transfer is valid");
@@ -63,7 +63,7 @@ route.post('/newtrip', async (req, res) => {
     if (sufficentBalance.okay) {
         now = new Date();
         let newTransfer = new Date();
-        newTransfer.setMinutes(newTransfer.getMinutes() + 10);
+        newTransfer.setMinutes(newTransfer.getMinutes() + 3);
 
         console.log(now, newTransfer);
         let newBalance = sufficentBalance.balance - fareCost;
